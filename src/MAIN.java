@@ -37,7 +37,7 @@ public class MAIN {
         }
 		float [][] R = new float[100][100] ;
 		float [] F =new float[100] ;
-		int a,b ;
+		int a ;
 		for(int i=0 ; i<T.length;i++) {
 			
 			R[i][0]=(float) T[i].getComputation_time();
@@ -46,17 +46,20 @@ public class MAIN {
 				
 				R[i][a+1]=T[i].getComputation_time()+somme(R[i][a],T,i);
 				
+				System.out.println("R[i][a+1]="+R[i][a+1]+" Computation_time="+T[i].getComputation_time()+" Deadline_task="+T[i].getDeadline_task());
 				a=a+1;
-				b=a;
 				
-			}while((R[i][a+1]<=T[i].getDeadline_task()) && (R[i][a]<R[i][a+1]));
+				
+				
+			}while((R[i][a]<=T[i].getDeadline_task()) && (R[i][a-1]<R[i][a]));
 			
 			
-			if(R[i][b]>T[i].getDeadline_task()) {
+			if(R[i][a]>T[i].getDeadline_task()) {
 				System.out.println("Tasks are not schedulable by DMS");
+				
 				return;
 			}
-			else { F[i]=R[i][b] ;
+			else { F[i]=R[i][a] ;
 			}
 					}
 		int r=0;
